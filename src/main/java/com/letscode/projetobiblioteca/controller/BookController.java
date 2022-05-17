@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/book")
@@ -34,17 +33,6 @@ public class BookController {
         return this.bookService.saveBook(book);
     }
 
-    @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public Optional<Book> updateBooks(@PathVariable Long id, @RequestBody @Valid Book book){
-        return this.bookService.updateBook(id, book);
-    }
-
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteBook(@PathVariable Long id){
-        this.bookService.deleteBook(id);
-    }
 
     @ExceptionHandler
     public ResponseEntity bookNotFound(BookNotFoundException e){
