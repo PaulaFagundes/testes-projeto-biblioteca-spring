@@ -1,1 +1,0 @@
-insert into book values('thewitcher','andre', 2021, 'teste', 5);

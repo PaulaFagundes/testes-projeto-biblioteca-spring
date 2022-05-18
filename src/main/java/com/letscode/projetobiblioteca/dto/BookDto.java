@@ -9,7 +9,7 @@ import javax.validation.constraints.NotEmpty;
 @Setter
 public class BookDto {
     @NotEmpty(message = "Nome é obrigatorio")
-    private String nome;
+    private String name;
 
     @NotEmpty(message = "Ano de publicação é obrigatorio")
     private Integer yearOfPublication;
