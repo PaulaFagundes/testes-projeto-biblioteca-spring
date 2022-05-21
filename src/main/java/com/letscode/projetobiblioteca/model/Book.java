@@ -2,34 +2,37 @@ package com.letscode.projetobiblioteca.model;
 
 import lombok.*;
 
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.util.Objects;
+
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
-@Table(name = "book")
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-    @Column(name = "name_book")
     private String name;
+    private String autor;
 
-    @Column(name = "year_of_publication")
-    private Integer yearOfPublication;
 
-    @Column(name = "author")
-    private String author;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return Objects.equals(id, book.id);
+    }
 
-    @Column(name = "publishing_company")
-    private String publishingCompany;
-
-    @Column(name = "quantity")
-    private Integer quantity;
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

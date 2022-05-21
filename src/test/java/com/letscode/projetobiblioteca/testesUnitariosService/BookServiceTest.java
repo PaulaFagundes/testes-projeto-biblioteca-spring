@@ -1,6 +1,5 @@
 package com.letscode.projetobiblioteca.testesUnitariosService;
 
-
 import com.letscode.projetobiblioteca.model.Book;
 import com.letscode.projetobiblioteca.repository.BookRepository;
 import com.letscode.projetobiblioteca.service.BookService;
@@ -26,42 +25,43 @@ public class BookServiceTest {
     void saveBookTest() {
         Book bookSave = new Book();
         bookSave.setName("LivroTeste");
-        bookSave.setYearOfPublication(2022);
-        bookSave.setQuantity(6);
+        bookSave.setAutor("Teste");
 
-        Book bookRetorno = new Book();
-        bookRetorno.setName("LivroTeste");
-        bookRetorno.setYearOfPublication(2022);
-        bookRetorno.setQuantity(6);
+        Book bookReturn = new Book();
+        bookReturn.setId(1234L);
+        bookReturn.setName("LivroTeste");
+        bookReturn.setAutor("Teste");
 
         Mockito.when(bookRepository.save(bookSave))
-                .thenReturn(bookRetorno);
+                .thenReturn(bookReturn);
 
-        bookRetorno = bookService.saveBook(bookSave);
+        bookReturn = bookService.saveBook(bookSave);
 
-        Assertions.assertNotNull(bookRetorno);
-        Assertions.assertEquals(bookSave.getName(), bookRetorno.getName());
-        Assertions.assertEquals(bookSave.getYearOfPublication(), bookRetorno.getYearOfPublication());
-        Assertions.assertEquals(bookSave.getQuantity(), bookRetorno.getQuantity());
+
+        Assertions.assertNotNull(bookReturn);
+        Assertions.assertNotNull(bookReturn.getId());
+        Assertions.assertEquals(1234L, bookReturn.getId());
+        Assertions.assertEquals(bookSave.getName(), bookReturn.getName());
+        Assertions.assertEquals(bookSave.getAutor(), bookReturn.getAutor());
     }
 
 
     @Test
-    void listaClienteTeste() {
+    void getAllBookTest() {
 
-        List<Cliente> clientesList = new ArrayList<>();
-        clientesList.add(new Cliente(1L, "Cliente 1", "123", "cliente1@test.com"));
-        clientesList.add(new Cliente(2L, "Cliente 2", "456", "cliente2@test.com"));
-        clientesList.add(new Cliente(3L, "Cliente 3", "54656", "cliente3@test.com"));
+        List<Book> booksList = new ArrayList<>();
+        booksList.add(new Book(1L,"Livro 1", "Teste"));
+        booksList.add(new Book(2L, "Livro 2","Teste"));
+        booksList.add(new Book(3L, "Livro3","Teste"));
 
-        Mockito.when(clienteRepository.findAll())
-                .thenReturn(clientesList);
+        Mockito.when(bookRepository.findAll())
+                .thenReturn(booksList);
 
-        List<Cliente> clientes = clienteService.lista();
+        List<Book> books = bookService.getAll();
 
-        Assertions.assertNotNull(clientes);
-        Assertions.assertFalse(clientes.isEmpty());
-        Assertions.assertEquals(3, clientesList.size());
+        Assertions.assertNotNull(books);
+        Assertions.assertFalse(books.isEmpty());
+        Assertions.assertEquals(3, booksList.size());
 
     }
 }
